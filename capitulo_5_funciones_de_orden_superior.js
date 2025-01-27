@@ -16,3 +16,19 @@ function miCiclo(array, prueba, actualización, cuerpo){
 }
 
 miCiclo(8, n => n > 0, n => n - 1, console.log);
+
+
+//ejercicio 3: cada uno
+
+function cada(array, test) {
+    for (let elemento of array) {
+      if (!test(elemento)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  console.log(cada([1, 3, 5], n => n < 10));
+
+
