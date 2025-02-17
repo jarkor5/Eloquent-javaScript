@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Montañas</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 4px 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Montañas</h1>
+  <div id="mountains"></div>
+  <script>
+    const MONTAÑAS = [
+      {nombre: "Kilimanjaro", altura: 5895, lugar: "Tanzania"},
+      {nombre: "Everest", altura: 8848, lugar: "Nepal"},
+      {nombre: "Monte Fuji", altura: 3776, lugar: "Japón"},
+      {nombre: "Vaalserberg", altura: 323, lugar: "Países Bajos"},
+      {nombre: "Denali", altura: 6168, lugar: "Estados Unidos"},
+      {nombre: "Popocatépetl", altura: 5465, lugar: "México"},
+      {nombre: "Mont Blanc", altura: 4808, lugar: "Italia/Francia"}
+    ];
+    const tabla = document.createElement("table");
+    const claves = Object.keys(MONTAÑAS[0]);
+    const filaEncabezado = document.createElement("tr");
+    for (const clave of claves) {
+      const th = document.createElement("th");
+      th.textContent = clave;
+      filaEncabezado.appendChild(th);
+    }
+    tabla.appendChild(filaEncabezado);
+    for (const montaña of MONTAÑAS) {
+      const fila = document.createElement("tr");
+      for (const clave of claves) {
+        const celda = document.createElement("td");
+        celda.textContent = montaña[clave];
+        if (typeof montaña[clave] === "number") {
+          celda.style.textAlign = "right";
+        }
+        fila.appendChild(celda);
+      }
+      tabla.appendChild(fila);
+    }
+    document.getElementById("mountains").appendChild(tabla);
+  </script>
+</body>
+</html>
+
+
+

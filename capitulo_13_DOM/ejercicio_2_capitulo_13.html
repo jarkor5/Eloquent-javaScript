@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Elements by Tag Name</title>
+</head>
+<body>
+  <h1>Encabezado con un <span>elemento span</span>.</h1>
+  <p>Un párrafo con <span>uno</span>, <span>dos</span> spans.</p>
+
+  <script>
+    function byTagName(node, tagName) {
+      let resultado = [];
+      let tag = tagName.toLowerCase();
+      for (let hijo of node.childNodes) {
+        if (hijo.nodeType === 1) {
+          if (hijo.nodeName.toLowerCase() === tag) resultado.push(hijo);
+          resultado = resultado.concat(byTagName(hijo, tag));
+        }
+      }
+      return resultado;
+    }
+
+    console.log(byTagName(document.body, "h1").length);
+    console.log(byTagName(document.body, "span").length);
+    let para = document.querySelector("p");
+    console.log(byTagName(para, "span").length);
+  </script>
+</body>
+</html>
