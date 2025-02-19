@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio de la bomba</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    p {
+      font-size: 100px;
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <p id="balloon">🎈</p>
+  <script>
+    let balloon = document.getElementById("balloon");
+    let currentSize = 100; 
+    const explosionThreshold = 500; 
+    const minimumSize = 50; 
+
+    function updateBalloon() {
+      balloon.style.fontSize = currentSize + "px";
+      if (currentSize > explosionThreshold) {
+        balloon.textContent = "💥";
+        document.removeEventListener("keydown", keyHandler);
+      }
+    }
+
+    function keyHandler(event) {
+      if (event.key === "ArrowUp") {
+        currentSize *= 1.1;
+        event.preventDefault();
+        updateBalloon();
+      } else if (event.key === "ArrowDown") {
+        if (currentSize * 0.9 >= minimumSize) {
+          currentSize *= 0.9;
+        } else {
+          currentSize = minimumSize;
+        }
+        event.preventDefault();
+        updateBalloon();
+      }
+    }
+
+    document.addEventListener("keydown", keyHandler);
+    updateBalloon();
+  </script>
+</body>
+</html>

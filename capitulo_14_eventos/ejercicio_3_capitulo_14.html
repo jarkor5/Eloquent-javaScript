@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Paneles con Pestañas</title>
+  <style>
+    tab-panel {
+      display: block;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 20px;
+    }
+    tab-panel > div {
+      padding: 5px;
+    }
+    .active-tab {
+      background-color: #eee;
+      border: 1px solid #ccc;
+      font-weight: bold;
+    }
+    /* Opcional: estilo para el contenedor de botones */
+    .tabs {
+      margin-bottom: 10px;
+    }
+    .tabs button {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <tab-panel>
+    <div data-tabname="uno"> pestaña uno</div>
+    <div data-tabname="dos">pestaña dos</div>
+    <div data-tabname="tres">pestaña tres</div>
+  </tab-panel>
+
+  <script>
+    function asTabs(node) {
+      let tabContainer = document.createElement("div");
+      tabContainer.className = "tabs";
+      let tabs = [];
+      let children = Array.from(node.children);
+      children.forEach((child, i) => {
+        let name = child.getAttribute("data-tabname") || "Pestaña " + (i + 1);
+        let button = document.createElement("button");
+        button.textContent = name;
+        tabContainer.appendChild(button);
+        tabs.push({ button, panel: child });
+      });
+      node.insertBefore(tabContainer, node.firstChild);
+      function activateTab(index) {
+        tabs.forEach((tab, i) => {
+          if (i === index) {
+            tab.panel.style.display = "";
+            tab.button.classList.add("active-tab");
+          } else {
+            tab.panel.style.display = "none";
+            tab.button.classList.remove("active-tab");
+          }
+        });
+      }
+    
+      activateTab(0);
+    
+      tabs.forEach((tab, i) => {
+        tab.button.addEventListener("click", () => activateTab(i));
+      });
+    }
+    
+    asTabs(document.querySelector("tab-panel"));
+  </script>
+</body>
+</html>
